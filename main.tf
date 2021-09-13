@@ -34,7 +34,7 @@ resource "aws_cloudwatch_log_group" "hello_world" {
 data "archive_file" "lambda_zip_file" {
   type        = "zip"
   source_file = "${path.module}/../brew_book_brew_api/target/release/bootstrap"
-  output_path = "${path.module}/../lambda.zip"
+  output_path = "${path.module}/../brew_book_brew_api/lambda.zip"
 }
 # 
 resource "aws_lambda_function" "get_brew_lambda" {
