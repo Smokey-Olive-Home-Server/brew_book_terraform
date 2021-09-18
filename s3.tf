@@ -7,24 +7,24 @@
 #   }
 # }
 
-# resource "aws_s3_bucket" "home_server_statics" {
-#   bucket = "home-server-statics"
-#   acl    = "public-read"
-#   policy = jsonencode({
-#     "Version" : "2012-10-17",
-#     "Statement" : [
-#       {
-#         "Sid" : "PublicRead",
-#         "Effect" : "Allow",
-#         "Principal" : "*",
-#         "Action" : ["s3:GetObject", "s3:GetObjectVersion"],
-#         "Resource" : ["arn:aws:s3:::home-server-statics/*"]
-#       }
-#     ]
-#   })
+resource "aws_s3_bucket" "home_server_statics" {
+  bucket = "home-server-statics"
+  acl    = "public-read"
+  policy = jsonencode({
+    "Version" : "2012-10-17",
+    "Statement" : [
+      {
+        "Sid" : "PublicRead",
+        "Effect" : "Allow",
+        "Principal" : "*",
+        "Action" : ["s3:GetObject", "s3:GetObjectVersion"],
+        "Resource" : ["arn:aws:s3:::home-server-statics/*"]
+      }
+    ]
+  })
 
-#   website {
-#     index_document = "index.html"
-#     error_document = "error.html"
-#   }
-# }
+  website {
+    index_document = "index.html"
+    error_document = "error.html"
+  }
+}
