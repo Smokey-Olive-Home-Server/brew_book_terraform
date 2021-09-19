@@ -110,6 +110,13 @@ resource "aws_apigatewayv2_integration" "get_brew_integration" {
   integration_method = "POST"
 }
 
+resource "aws_apigatewayv2_integration" "get_brews_integration" {
+  api_id             = aws_apigatewayv2_api.brew_book_apigateway.id
+  integration_uri    = aws_lambda_function.get_brew_lambda.invoke_arn
+  integration_type   = "AWS_PROXY"
+  integration_method = "POST"
+}
+
 resource "aws_apigatewayv2_integration" "post_brew_integration" {
   api_id             = aws_apigatewayv2_api.brew_book_apigateway.id
   integration_uri    = aws_lambda_function.get_brew_lambda.invoke_arn
@@ -121,6 +128,12 @@ resource "aws_apigatewayv2_route" "get_brew" {
   api_id    = aws_apigatewayv2_api.brew_book_apigateway.id
   route_key = "GET /brew"
   target    = "integrations/${aws_apigatewayv2_integration.get_brew_integration.id}"
+}
+
+resource "aws_apigatewayv2_route" "get_brews" {
+  api_id    = aws_apigatewayv2_api.brew_book_apigateway.id
+  route_key = "GET /brews"
+  target    = "integrations/${aws_apigatewayv2_integration.get_brews_integration.id}"
 }
 
 resource "aws_apigatewayv2_route" "post_brew" {
